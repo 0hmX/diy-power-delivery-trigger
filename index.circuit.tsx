@@ -3,38 +3,6 @@ const UsbCPlug = (props: any) => (
     {...props}
     supplierPartNumbers={{ jlcpcb: ["C165948"] }}
     footprint="kicad:Connector_USB/USB_C_Receptacle_HRO_TYPE-C-31-M-12"
-    pinLabels={{
-      pin1: "GND_A1",
-      pin2: "VBUS_A4",
-      pin3: "CC1",
-      pin4: "D_POS_A6",
-      pin5: "D_NEG_A7",
-      pin6: "SBU1",
-      pin7: "VBUS_A9",
-      pin8: "GND_A12",
-      pin9: "GND_B1",
-      pin10: "VBUS_B4",
-      pin11: "SBU2",
-      pin12: "D_NEG_B7",
-      pin13: "D_POS_B6",
-      pin14: "CC2",
-      pin15: "VBUS_B9",
-      pin16: "GND_B12",
-      pin17: "SHIELD_1",
-      pin18: "SHIELD_2",
-      pin19: "SHIELD_3",
-      pin20: "SHIELD_4",
-    }}
-    schPinArrangement={{
-      leftSide: {
-        direction: "top-to-bottom",
-        pins: ["VBUS_A4", "VBUS_A9", "VBUS_B4", "VBUS_B9", "CC1", "CC2"],
-      },
-      rightSide: {
-        direction: "top-to-bottom",
-        pins: ["GND_A1", "GND_A12", "GND_B1", "GND_B12", "SHIELD_1", "SHIELD_2"],
-      },
-    }}
   />
 )
 
@@ -282,20 +250,20 @@ export default () => (
     </group>
 
     <TerminalBlock2 name="CN1" pcbX="52mm" pcbY="-14mm" pcbRotation={90} schX="20mm" schY="-6mm" />
-    <trace from="USB2.VBUS_A4" to="net.VBUS" />
-    <trace from="USB2.VBUS_A9" to="net.VBUS" />
-    <trace from="USB2.VBUS_B4" to="net.VBUS" />
-    <trace from="USB2.VBUS_B9" to="net.VBUS" />
-    <trace from="USB2.GND_A1" to="net.GND" />
-    <trace from="USB2.GND_A12" to="net.GND" />
-    <trace from="USB2.GND_B1" to="net.GND" />
-    <trace from="USB2.GND_B12" to="net.GND" />
-    <trace from="USB2.SHIELD_1" to="net.GND" />
-    <trace from="USB2.SHIELD_2" to="net.GND" />
-    <trace from="USB2.SHIELD_3" to="net.GND" />
-    <trace from="USB2.SHIELD_4" to="net.GND" />
-    <trace from="USB2.CC2" to="R1.pin1" />
-    <trace from="USB2.CC1" to="R2.pin1" />
+    <trace from="USB2.pin2" to="net.VBUS" />
+    <trace from="USB2.pin7" to="net.VBUS" />
+    <trace from="USB2.pin10" to="net.VBUS" />
+    <trace from="USB2.pin15" to="net.VBUS" />
+    <trace from="USB2.pin1" to="net.GND" />
+    <trace from="USB2.pin8" to="net.GND" />
+    <trace from="USB2.pin9" to="net.GND" />
+    <trace from="USB2.pin16" to="net.GND" />
+    <trace from="USB2.pin17" to="net.GND" />
+    <trace from="USB2.pin18" to="net.GND" />
+    <trace from="USB2.pin19" to="net.GND" />
+    <trace from="USB2.pin20" to="net.GND" />
+    <trace from="USB2.pin14" to="R1.pin1" />
+    <trace from="USB2.pin3" to="R2.pin1" />
 
     <trace from="R1.pin2" to="U1.CC2_A" />
     <trace from="R1.pin2" to="U1.CC2_B" />
