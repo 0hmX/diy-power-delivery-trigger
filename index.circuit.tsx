@@ -104,31 +104,35 @@ const Stm32F030 = (props: any) => (
   />
 )
 
-const Ldo3V3 = (props: any) => (
+const Buck3V3 = (props: any) => (
   <chip
     {...props}
-    footprint="kicad:Package_TO_SOT_SMD/SOT-223-3_TabPin2"
-    supplierPartNumbers={{ jlcpcb: ["C6186"] }}
+    footprint="kicad:Package_TO_SOT_SMD/SOT-23-6"
+    supplierPartNumbers={{ jlcpcb: ["C780769"] }}
     pinLabels={{
-      pin1: "GND",
-      pin2: "VOUT",
-      pin3: "VIN",
-      pin4: "VOUT_TAB",
+      pin1: "SW",
+      pin2: "GND",
+      pin3: "FB",
+      pin4: "EN",
+      pin5: "VIN",
+      pin6: "BST",
     }}
     pinAttributes={{
       VIN: { requiresPower: true },
-      VOUT: { providesPower: true },
-      VOUT_TAB: { providesPower: true },
       GND: { requiresPower: true, requiresGround: true },
+      SW: { mustBeConnected: true },
+      FB: { mustBeConnected: true },
+      EN: { mustBeConnected: true },
+      BST: { mustBeConnected: true },
     }}
     schPinArrangement={{
       leftSide: {
         direction: "top-to-bottom",
-        pins: ["VIN", "GND"],
+        pins: ["VIN", "EN", "FB"],
       },
       rightSide: {
         direction: "top-to-bottom",
-        pins: ["VOUT", "VOUT_TAB"],
+        pins: ["BST", "SW", "GND"],
       },
     }}
   />
@@ -139,14 +143,6 @@ const EsdDiode = (props: any) => (
     {...props}
     footprint="kicad:Diode_SMD/D_SOD-323"
     supplierPartNumbers={{ jlcpcb: ["C5261083"] }}
-  />
-)
-
-const PowerDiode = (props: any) => (
-  <diode
-    {...props}
-    footprint="kicad:Diode_SMD/D_SOD-323"
-    supplierPartNumbers={{ jlcpcb: ["C191023"] }}
   />
 )
 
@@ -222,24 +218,31 @@ export default () => (
       <EsdDiode name="D1" pcbX="12mm" pcbY="-5.5mm" pcbRotation={180} schX="-10mm" schY="-4mm" />
       <EsdDiode name="D2" pcbX="12mm" pcbY="5.5mm" pcbRotation={180} schX="-10mm" schY="3mm" />
       <Fusb302 name="U1" pcbX="20mm" pcbY="0mm" schX="-5mm" schY="0mm" />
+      <capacitor name="C7" capacitance="100nF" footprint="0402" pcbX="26mm" pcbY="-4mm" schX="-1mm" schY="-5mm" />
+      <capacitor name="C8" capacitance="1uF" footprint="0603" pcbX="26mm" pcbY="4mm" schX="1mm" schY="-5mm" />
+      <capacitor name="C9" capacitance="220pF" footprint="0402" pcbX="12mm" pcbY="-10mm" schX="-4mm" schY="-6mm" />
+      <capacitor name="C10" capacitance="220pF" footprint="0402" pcbX="12mm" pcbY="10mm" schX="-4mm" schY="6mm" />
     </group>
 
     <group pcbX="-12mm" pcbY="17mm">
-      <PowerDiode name="D3" pcbX="-10mm" pcbY="0mm" schX="-15mm" schY="10mm" />
-      <capacitor name="C2" capacitance="100nF" footprint="0402" pcbX="-3mm" pcbY="-6mm" schX="-12mm" schY="11mm" />
-      <capacitor name="C4" capacitance="10uF" footprint="0603" pcbX="-3mm" pcbY="6mm" schX="-10.5mm" schY="11mm" />
-      <Ldo3V3 name="U3" pcbX="7mm" pcbY="0mm" schX="-6.5mm" schY="10.5mm" />
-      <capacitor name="C5" capacitance="10uF" footprint="0603" pcbX="18mm" pcbY="-6mm" schX="-3.5mm" schY="11mm" />
-      <capacitor name="C3" capacitance="100nF" footprint="0402" pcbX="18mm" pcbY="6mm" schX="-1.5mm" schY="11mm" />
+      <capacitor name="C2" capacitance="100nF" footprint="0603" pcbX="-9mm" pcbY="-6mm" schX="-13mm" schY="10mm" />
+      <capacitor name="C4" capacitance="10uF" footprint="1206" pcbX="-9mm" pcbY="6mm" schX="-11mm" schY="10mm" />
+      <Buck3V3 name="U3" pcbX="0mm" pcbY="0mm" schX="-6.5mm" schY="10.5mm" />
+      <capacitor name="C11" capacitance="100nF" footprint="0402" pcbX="1mm" pcbY="-8mm" schX="-4mm" schY="14mm" />
+      <inductor name="L1" inductance="6.8uH" footprint="kicad:Inductor_SMD/L_1210_3225Metric" pcbX="12mm" pcbY="0mm" schX="-1mm" schY="10.5mm" />
+      <capacitor name="C5" capacitance="22uF" footprint="1206" pcbX="21mm" pcbY="-6mm" schX="3mm" schY="10mm" />
+      <capacitor name="C3" capacitance="22uF" footprint="1206" pcbX="21mm" pcbY="6mm" schX="5mm" schY="10mm" />
     </group>
 
     <group pcbX="10mm" pcbY="-2mm">
       <Stm32F030 name="U2" pcbX="0mm" pcbY="0mm" schX="7mm" schY="-1mm" />
       <resistor name="R3" resistance="2.2kohm" footprint="0402" pcbX="-11mm" pcbY="-7mm" schX="1mm" schY="-8mm" />
       <resistor name="R4" resistance="2.2kohm" footprint="0402" pcbX="-11mm" pcbY="-3.5mm" schX="-1mm" schY="-8mm" />
+      <resistor name="R8" resistance="4.7kohm" footprint="0402" pcbX="-11mm" pcbY="1mm" schX="1mm" schY="-10mm" />
       <capacitor name="C1" capacitance="100nF" footprint="0402" pcbX="11mm" pcbY="5mm" schX="12mm" schY="5mm" />
+      <resistor name="R9" resistance="10kohm" footprint="0402" pcbX="18mm" pcbY="-10mm" schX="3mm" schY="12mm" />
       <PushButton2Pin name="SW1" pcbX="16mm" pcbY="-14mm" schX="4mm" schY="10mm" />
-      <capacitor name="C6" capacitance="100nF" footprint="0402" pcbX="23mm" pcbY="-14mm" schX="6.5mm" schY="10mm" />
+      <capacitor name="C6" capacitance="100nF" footprint="0402" pcbX="28mm" pcbY="-14mm" schX="6.5mm" schY="10mm" />
     </group>
 
     <group pcbX="30mm" pcbY="12mm">
@@ -262,13 +265,17 @@ export default () => (
     <trace from="USB2.pin18" to="net.GND" />
     <trace from="USB2.pin19" to="net.GND" />
     <trace from="USB2.pin20" to="net.GND" />
-    <trace from="USB2.pin14" to="R1.pin1" />
+    <trace from="USB2.pin11" to="R1.pin1" />
     <trace from="USB2.pin3" to="R2.pin1" />
 
     <trace from="R1.pin2" to="U1.CC2_A" />
     <trace from="R1.pin2" to="U1.CC2_B" />
+    <trace from="R1.pin2" to="C9.pin1" />
+    <trace from="C9.pin2" to="net.GND" />
     <trace from="R2.pin2" to="U1.CC1_A" />
     <trace from="R2.pin2" to="U1.CC1_B" />
+    <trace from="R2.pin2" to="C10.pin1" />
+    <trace from="C10.pin2" to="net.GND" />
     <trace from="R1.pin2" to="D1.pin1" />
     <trace from="D1.pin2" to="net.GND" />
     <trace from="R2.pin2" to="D2.pin1" />
@@ -277,6 +284,10 @@ export default () => (
     <trace from="U1.VBUS" to="net.VBUS" />
     <trace from="U1.VDD_A" to="net.V3_3" />
     <trace from="U1.VDD_B" to="net.V3_3" />
+    <trace from="C7.pin1" to="net.V3_3" />
+    <trace from="C7.pin2" to="net.GND" />
+    <trace from="C8.pin1" to="net.V3_3" />
+    <trace from="C8.pin2" to="net.GND" />
     <trace from="U1.GND_A" to="net.GND" />
     <trace from="U1.GND_B" to="net.GND" />
     <trace from="U1.EP" to="net.GND" />
@@ -284,16 +295,18 @@ export default () => (
     <trace from="U1.SCL" to="net.SCL" />
     <trace from="U1.SDA" to="net.SDA" />
 
-    <trace from="net.VBUS" to="D3.pin1" />
-    <trace from="D3.pin2" to="net.VBUS_PROTECTED" />
-    <trace from="C2.pin1" to="net.VBUS_PROTECTED" />
+    <trace from="C2.pin1" to="net.VBUS" />
     <trace from="C2.pin2" to="net.GND" />
-    <trace from="C4.pin1" to="net.VBUS_PROTECTED" />
+    <trace from="C4.pin1" to="net.VBUS" />
     <trace from="C4.pin2" to="net.GND" />
-    <trace from="U3.VIN" to="net.VBUS_PROTECTED" />
+    <trace from="U3.VIN" to="net.VBUS" />
+    <trace from="U3.EN" to="net.VBUS" />
     <trace from="U3.GND" to="net.GND" />
-    <trace from="U3.VOUT" to="net.V3_3" />
-    <trace from="U3.VOUT_TAB" to="net.V3_3" />
+    <trace from="U3.SW" to="L1.pin1" />
+    <trace from="L1.pin2" to="net.V3_3" />
+    <trace from="U3.FB" to="net.V3_3" />
+    <trace from="U3.BST" to="C11.pin1" />
+    <trace from="C11.pin2" to="U3.SW" />
     <trace from="C5.pin1" to="net.V3_3" />
     <trace from="C5.pin2" to="net.GND" />
     <trace from="C3.pin1" to="net.V3_3" />
@@ -314,7 +327,11 @@ export default () => (
     <trace from="R3.pin2" to="net.SDA" />
     <trace from="R4.pin1" to="net.V3_3" />
     <trace from="R4.pin2" to="net.SCL" />
+    <trace from="R8.pin1" to="net.V3_3" />
+    <trace from="R8.pin2" to="net.INT" />
 
+    <trace from="R9.pin1" to="net.V3_3" />
+    <trace from="R9.pin2" to="net.BTN" />
     <trace from="SW1.A" to="net.BTN" />
     <trace from="SW1.B" to="net.GND" />
     <trace from="C6.pin1" to="net.BTN" />
