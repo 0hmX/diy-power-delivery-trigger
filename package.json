@@ -1,0 +1,26 @@
+{
+  "name": "@tsci/ohmx.diy-power-delivery-trigger",
+  "version": "1.0.0",
+  "description": "Reconstructed tscircuit clone of the Electromaker DIY Power Delivery Trigger project.",
+  "main": "index.tsx",
+  "keywords": [
+    "tscircuit",
+    "circuit",
+    "pcb",
+    "usb-c",
+    "usb-pd"
+  ],
+  "scripts": {
+    "dev": "tsci dev",
+    "build": "tsci build",
+    "snapshot": "tsci snapshot",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "circuit-json": "^0.0.418",
+    "tscircuit": "^0.0.1664",
+    "typescript": "^5.9.3"
+  },
+  "author": "ohmx",
+  "license": "MIT"
+}
