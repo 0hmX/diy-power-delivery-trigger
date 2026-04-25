@@ -1,16 +1,52 @@
+import { AP63203WU_7 } from "./imports/AP63203WU_7"
+import { B3U_1000P } from "./imports/B3U_1000P"
+import { FUSB302BMPX } from "./imports/FUSB302BMPX"
+import { NLV32T_6R8J_PF } from "./imports/NLV32T_6R8J_PF"
+import { PESD5V0S1BA } from "./imports/PESD5V0S1BA"
+import { STM32F030F4P6TR } from "./imports/STM32F030F4P6TR"
+import { TYPE_C_31_M_12 } from "./imports/TYPE_C_31_M_12"
+import { WJ2EDGVC_5_08_02P_14_00A } from "./imports/WJ2EDGVC_5_08_02P_14_00A"
+import { XL_5050RGBC } from "./imports/XL_5050RGBC"
+
 const UsbCPlug = (props: any) => (
-  <connector
+  <TYPE_C_31_M_12
     {...props}
-    supplierPartNumbers={{ jlcpcb: ["C165948"] }}
-    footprint="kicad:Connector_USB/USB_C_Receptacle_HRO_TYPE-C-31-M-12"
+    pinLabels={{
+      pin1: "SHIELD_A",
+      pin2: "SHIELD_B",
+      pin3: "SHIELD_C",
+      pin4: "SHIELD_D",
+      pin5: "SBU2",
+      pin6: "CC1",
+      pin7: "D_N2",
+      pin8: "D_P1",
+      pin9: "D_N1",
+      pin10: "D_P2",
+      pin11: "SBU1",
+      pin12: "CC2",
+      pin13: "GND_A",
+      pin14: "GND_B",
+      pin15: "VBUS_A",
+      pin16: "VBUS_B",
+    }}
+    pinAttributes={{
+      SHIELD_A: { requiresGround: true },
+      SHIELD_B: { requiresGround: true },
+      SHIELD_C: { requiresGround: true },
+      SHIELD_D: { requiresGround: true },
+      CC1: { mustBeConnected: true },
+      CC2: { mustBeConnected: true },
+      GND_A: { requiresPower: true, requiresGround: true },
+      GND_B: { requiresPower: true, requiresGround: true },
+      VBUS_A: { requiresPower: true },
+      VBUS_B: { requiresPower: true },
+    }}
   />
 )
 
 const Fusb302 = (props: any) => (
-  <chip
+  <FUSB302BMPX
     {...props}
-    footprint="kicad:Package_DFN_QFN/WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm"
-    supplierPartNumbers={{ jlcpcb: ["C132291"] }}
     pinLabels={{
       pin1: "CC2_B",
       pin2: "VBUS",
@@ -54,10 +90,8 @@ const Fusb302 = (props: any) => (
 )
 
 const Stm32F030 = (props: any) => (
-  <chip
+  <STM32F030F4P6TR
     {...props}
-    footprint="kicad:Package_SO/TSSOP-20_4.4x6.5mm_P0.65mm"
-    supplierPartNumbers={{ jlcpcb: ["C89040"] }}
     pinLabels={{
       pin1: "BOOT0",
       pin2: "PF0_OSC_IN",
@@ -72,12 +106,12 @@ const Stm32F030 = (props: any) => (
       pin11: "PA5_LED_R",
       pin12: "PA6_LED_G",
       pin13: "PA7_LED_B",
-      pin14: "PB1",
+      pin14: "PB1_INT",
       pin15: "VSS",
       pin16: "VDD",
       pin17: "PA9_SCL",
       pin18: "PA10_SDA",
-      pin19: "PA13_INT",
+      pin19: "PA13_SWDIO",
       pin20: "PA14_SWCLK",
     }}
     pinAttributes={{
@@ -94,29 +128,19 @@ const Stm32F030 = (props: any) => (
       },
       rightSide: {
         direction: "top-to-bottom",
-        pins: ["PB1", "PF0_OSC_IN", "PF1_OSC_OUT", "BOOT0", "NRST", "VSS"],
+        pins: ["PB1_INT", "PF0_OSC_IN", "PF1_OSC_OUT", "BOOT0", "NRST", "VSS"],
       },
       bottomSide: {
         direction: "left-to-right",
-        pins: ["VDDA", "VDD", "PA9_SCL", "PA10_SDA", "PA13_INT", "PA14_SWCLK"],
+        pins: ["VDDA", "VDD", "PA9_SCL", "PA10_SDA", "PA13_SWDIO", "PA14_SWCLK"],
       },
     }}
   />
 )
 
 const Buck3V3 = (props: any) => (
-  <chip
+  <AP63203WU_7
     {...props}
-    footprint="kicad:Package_TO_SOT_SMD/SOT-23-6"
-    supplierPartNumbers={{ jlcpcb: ["C780769"] }}
-    pinLabels={{
-      pin1: "SW",
-      pin2: "GND",
-      pin3: "FB",
-      pin4: "EN",
-      pin5: "VIN",
-      pin6: "BST",
-    }}
     pinAttributes={{
       VIN: { requiresPower: true },
       GND: { requiresPower: true, requiresGround: true },
@@ -139,26 +163,34 @@ const Buck3V3 = (props: any) => (
 )
 
 const EsdDiode = (props: any) => (
-  <diode
+  <PESD5V0S1BA
     {...props}
-    footprint="kicad:Diode_SMD/D_SOD-323"
-    supplierPartNumbers={{ jlcpcb: ["C5261083"] }}
+    pinLabels={{
+      pin1: "pin1",
+      pin2: "pin2",
+    }}
+    pinAttributes={{
+      pin1: { mustBeConnected: true },
+      pin2: { requiresPower: true, requiresGround: true },
+    }}
   />
 )
 
 const RgbLed = (props: any) => (
-  <chip
+  <XL_5050RGBC
     {...props}
-    footprint="kicad:LED_SMD/LED_RGB_5050-6"
-    supplierPartNumbers={{ jlcpcb: ["C2843868"] }}
     pinLabels={{
-      pin1: "GREEN_K",
+      pin1: "BLUE_K",
       pin2: "RED_K",
-      pin3: "ANODE",
-      pin4: "BLUE_K",
+      pin3: "GREEN_K",
+      pin4: "ANODE_G",
+      pin5: "ANODE_R",
+      pin6: "ANODE_B",
     }}
     pinAttributes={{
-      ANODE: { requiresPower: true },
+      ANODE_G: { requiresPower: true },
+      ANODE_R: { requiresPower: true },
+      ANODE_B: { requiresPower: true },
       GREEN_K: { requiresGround: true },
       RED_K: { requiresGround: true },
       BLUE_K: { requiresGround: true },
@@ -166,20 +198,23 @@ const RgbLed = (props: any) => (
     schPinArrangement={{
       leftSide: {
         direction: "top-to-bottom",
-        pins: ["BLUE_K", "ANODE"],
+        pins: ["BLUE_K", "GREEN_K"],
       },
       rightSide: {
         direction: "top-to-bottom",
-        pins: ["GREEN_K", "RED_K"],
+        pins: ["RED_K"],
+      },
+      bottomSide: {
+        direction: "left-to-right",
+        pins: ["ANODE_G", "ANODE_R", "ANODE_B"],
       },
     }}
   />
 )
 
 const PushButton2Pin = (props: any) => (
-  <chip
+  <B3U_1000P
     {...props}
-    footprint="kicad:Button_Switch_SMD/SW_SPST_B3U-1000P-B"
     pinLabels={{
       pin1: "A",
       pin2: "B",
@@ -192,13 +227,15 @@ const PushButton2Pin = (props: any) => (
 )
 
 const TerminalBlock2 = (props: any) => (
-  <connector
+  <WJ2EDGVC_5_08_02P_14_00A
     {...props}
-    footprint="kicad:TerminalBlock/TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm"
-    supplierPartNumbers={{ jlcpcb: ["C8445"] }}
     pinLabels={{
       pin1: "VBUS",
       pin2: "GND",
+    }}
+    pinAttributes={{
+      VBUS: { requiresPower: true },
+      GND: { requiresPower: true, requiresGround: true },
     }}
     schPinArrangement={{
       leftSide: {
@@ -209,64 +246,88 @@ const TerminalBlock2 = (props: any) => (
   />
 )
 
+const PowerInductor = (props: any) => (
+  <NLV32T_6R8J_PF
+    {...props}
+    pinAttributes={{
+      pin1: { mustBeConnected: true },
+      pin2: { mustBeConnected: true },
+    }}
+  />
+)
+
+const SwdHeader = (props: any) => (
+  <pinheader
+    {...props}
+    pinCount={5}
+    gender="female"
+    pitch="2.54mm"
+    showSilkscreenPinLabels={true}
+    pinLabels={["3V3", "SWDIO", "SWCLK", "NRST", "GND"]}
+    schPinArrangement={{
+      leftSide: {
+        direction: "top-to-bottom",
+        pins: [1, 2, 3, 4, 5],
+      },
+    }}
+  />
+)
+
 export default () => (
-  <board width="128mm" height="56mm" layers={2} >
-    <group pcbX="-41mm" pcbY="0mm">
-      <UsbCPlug name="USB2" pcbX="-9mm" pcbY="0mm" pcbRotation={270} schX="-19mm" schY="-2mm" />
-      <resistor name="R1" resistance="100ohm" footprint="0402" pcbX="8mm" pcbY="-5.5mm" schX="-13mm" schY="-3.5mm" />
-      <resistor name="R2" resistance="100ohm" footprint="0402" pcbX="8mm" pcbY="5.5mm" schX="-13mm" schY="2.5mm" />
-      <EsdDiode name="D1" pcbX="12mm" pcbY="-5.5mm" pcbRotation={180} schX="-10mm" schY="-4mm" />
-      <EsdDiode name="D2" pcbX="12mm" pcbY="5.5mm" pcbRotation={180} schX="-10mm" schY="3mm" />
-      <Fusb302 name="U1" pcbX="20mm" pcbY="0mm" schX="-5mm" schY="0mm" />
-      <capacitor name="C7" capacitance="100nF" footprint="0402" pcbX="26mm" pcbY="-4mm" schX="-1mm" schY="-5mm" />
-      <capacitor name="C8" capacitance="1uF" footprint="0603" pcbX="26mm" pcbY="4mm" schX="1mm" schY="-5mm" />
-      <capacitor name="C9" capacitance="220pF" footprint="0402" pcbX="12mm" pcbY="-10mm" schX="-4mm" schY="-6mm" />
-      <capacitor name="C10" capacitance="220pF" footprint="0402" pcbX="12mm" pcbY="10mm" schX="-4mm" schY="6mm" />
+  <board width="86mm" height="36mm" layers={2}>
+    <group pcbX="-26.5mm" pcbY="0mm">
+      <UsbCPlug name="USB2" pcbX="-11mm" pcbY="0mm" pcbRotation={270} schX="-19mm" schY="-2mm" />
+      <resistor name="R1" resistance="100ohm" footprint="0402" pcbX="1mm" pcbY="-4.5mm" schX="-13mm" schY="-3.5mm" />
+      <resistor name="R2" resistance="100ohm" footprint="0402" pcbX="1mm" pcbY="4.5mm" schX="-13mm" schY="2.5mm" />
+      <EsdDiode name="D1" pcbX="1mm" pcbY="-8mm" schX="-10mm" schY="-4mm" />
+      <EsdDiode name="D2" pcbX="1mm" pcbY="8mm" pcbRotation={180} schX="-10mm" schY="3mm" />
+      <capacitor name="C9" capacitance="220pF" footprint="0402" pcbX="7mm" pcbY="-8mm" schX="-4mm" schY="-6mm" />
+      <capacitor name="C10" capacitance="220pF" footprint="0402" pcbX="7mm" pcbY="8mm" schX="-4mm" schY="6mm" />
+      <Fusb302 name="U1" pcbX="17mm" pcbY="0mm" schX="-5mm" schY="0mm" />
+      <capacitor name="C7" capacitance="100nF" footprint="0402" pcbX="23mm" pcbY="-4mm" schX="-1mm" schY="-5mm" />
+      <capacitor name="C8" capacitance="1uF" footprint="0603" pcbX="23mm" pcbY="4mm" schX="1mm" schY="-5mm" />
     </group>
 
-    <group pcbX="-12mm" pcbY="17mm">
-      <capacitor name="C2" capacitance="100nF" footprint="0603" pcbX="-9mm" pcbY="-6mm" schX="-13mm" schY="10mm" />
-      <capacitor name="C4" capacitance="10uF" footprint="1206" pcbX="-9mm" pcbY="6mm" schX="-11mm" schY="10mm" />
+    <group pcbX="-10mm" pcbY="10mm">
+      <capacitor name="C2" capacitance="100nF" footprint="0603" pcbX="-9mm" pcbY="-4mm" schX="-13mm" schY="10mm" />
+      <capacitor name="C4" capacitance="10uF" footprint="1206" pcbX="-9mm" pcbY="4mm" schX="-11mm" schY="10mm" />
       <Buck3V3 name="U3" pcbX="0mm" pcbY="0mm" schX="-6.5mm" schY="10.5mm" />
-      <capacitor name="C11" capacitance="100nF" footprint="0402" pcbX="1mm" pcbY="-8mm" schX="-4mm" schY="14mm" />
-      <inductor name="L1" inductance="6.8uH" footprint="kicad:Inductor_SMD/L_1210_3225Metric" pcbX="12mm" pcbY="0mm" schX="-1mm" schY="10.5mm" />
-      <capacitor name="C5" capacitance="22uF" footprint="1206" pcbX="21mm" pcbY="-6mm" schX="3mm" schY="10mm" />
-      <capacitor name="C3" capacitance="22uF" footprint="1206" pcbX="21mm" pcbY="6mm" schX="5mm" schY="10mm" />
+      <capacitor name="C11" capacitance="100nF" footprint="0402" pcbX="0mm" pcbY="-7mm" schX="-4mm" schY="14mm" />
+      <PowerInductor name="L1" pcbX="10mm" pcbY="0mm" schX="-1mm" schY="10.5mm" />
+      <capacitor name="C5" capacitance="22uF" footprint="1206" pcbX="18mm" pcbY="-4mm" schX="3mm" schY="12mm" />
+      <capacitor name="C3" capacitance="22uF" footprint="1206" pcbX="18mm" pcbY="4mm" schX="5mm" schY="10mm" />
     </group>
 
-    <group pcbX="10mm" pcbY="-2mm">
+    <group pcbX="7mm" pcbY="-1mm">
       <Stm32F030 name="U2" pcbX="0mm" pcbY="0mm" schX="7mm" schY="-1mm" />
-      <resistor name="R3" resistance="2.2kohm" footprint="0402" pcbX="-11mm" pcbY="-7mm" schX="1mm" schY="-8mm" />
-      <resistor name="R4" resistance="2.2kohm" footprint="0402" pcbX="-11mm" pcbY="-3.5mm" schX="-1mm" schY="-8mm" />
-      <resistor name="R8" resistance="4.7kohm" footprint="0402" pcbX="-11mm" pcbY="1mm" schX="1mm" schY="-10mm" />
-      <capacitor name="C1" capacitance="100nF" footprint="0402" pcbX="11mm" pcbY="5mm" schX="12mm" schY="5mm" />
-      <resistor name="R9" resistance="10kohm" footprint="0402" pcbX="18mm" pcbY="-10mm" schX="3mm" schY="12mm" />
-      <PushButton2Pin name="SW1" pcbX="16mm" pcbY="-14mm" schX="4mm" schY="10mm" />
-      <capacitor name="C6" capacitance="100nF" footprint="0402" pcbX="28mm" pcbY="-14mm" schX="6.5mm" schY="10mm" />
+      <resistor name="R3" resistance="2.2kohm" footprint="0402" pcbX="-10.5mm" pcbY="-7.5mm" schX="1mm" schY="-8mm" />
+      <resistor name="R4" resistance="2.2kohm" footprint="0402" pcbX="-8mm" pcbY="-2.8mm" schX="-1mm" schY="-8mm" />
+      <resistor name="R8" resistance="4.7kohm" footprint="0402" pcbX="-8mm" pcbY="0.8mm" schX="1mm" schY="-10mm" />
+      <capacitor name="C1" capacitance="100nF" footprint="0402" pcbX="8mm" pcbY="4mm" schX="12mm" schY="5mm" />
+      <resistor name="R9" resistance="10kohm" footprint="0402" pcbX="12mm" pcbY="-8mm" schX="3mm" schY="12mm" />
+      <PushButton2Pin name="SW1" pcbX="12mm" pcbY="-13mm" schX="4mm" schY="10mm" />
+      <capacitor name="C6" capacitance="100nF" footprint="0402" pcbX="19mm" pcbY="-13mm" schX="6.5mm" schY="10mm" />
     </group>
 
-    <group pcbX="30mm" pcbY="12mm">
-      <RgbLed name="LED1" pcbX="-2mm" pcbY="0mm" schX="13mm" schY="10mm" />
-      <resistor name="R7" resistance="2.2kohm" footprint="0402" pcbX="-12mm" pcbY="4mm" schX="9.5mm" schY="12mm" />
-      <resistor name="R6" resistance="5.6kohm" footprint="0402" pcbX="7mm" pcbY="-6mm" schX="18mm" schY="10mm" />
-      <resistor name="R5" resistance="2.2kohm" footprint="0402" pcbX="7mm" pcbY="6mm" schX="18mm" schY="12mm" />
+    <group pcbX="24mm" pcbY="10mm">
+      <RgbLed name="LED1" pcbX="0mm" pcbY="0mm" schX="13mm" schY="10mm" />
+      <resistor name="R7" resistance="2.2kohm" footprint="0402" pcbX="-6mm" pcbY="3mm" schX="9.5mm" schY="12mm" />
+      <resistor name="R6" resistance="5.6kohm" footprint="0402" pcbX="6mm" pcbY="-3mm" schX="18mm" schY="10mm" />
+      <resistor name="R5" resistance="2.2kohm" footprint="0402" pcbX="6mm" pcbY="3mm" schX="18mm" schY="12mm" />
     </group>
 
-    <TerminalBlock2 name="CN1" pcbX="52mm" pcbY="-14mm" pcbRotation={90} schX="20mm" schY="-6mm" />
-    <trace from="USB2.pin2" to="net.VBUS" />
-    <trace from="USB2.pin7" to="net.VBUS" />
-    <trace from="USB2.pin10" to="net.VBUS" />
-    <trace from="USB2.pin15" to="net.VBUS" />
-    <trace from="USB2.pin1" to="net.GND" />
-    <trace from="USB2.pin8" to="net.GND" />
-    <trace from="USB2.pin9" to="net.GND" />
-    <trace from="USB2.pin16" to="net.GND" />
-    <trace from="USB2.pin17" to="net.GND" />
-    <trace from="USB2.pin18" to="net.GND" />
-    <trace from="USB2.pin19" to="net.GND" />
-    <trace from="USB2.pin20" to="net.GND" />
-    <trace from="USB2.pin11" to="R1.pin1" />
-    <trace from="USB2.pin3" to="R2.pin1" />
+    <SwdHeader name="J1" pcbX="32mm" pcbY="-9mm" pcbRotation={90} schX="20mm" schY="6mm" />
+    <TerminalBlock2 name="CN1" pcbX="36mm" pcbY="10mm" pcbRotation={90} schX="20mm" schY="-6mm" />
+    <trace from="USB2.VBUS_A" to="net.VBUS" />
+    <trace from="USB2.VBUS_B" to="net.VBUS" />
+    <trace from="USB2.GND_A" to="net.GND" />
+    <trace from="USB2.GND_B" to="net.GND" />
+    <trace from="USB2.SHIELD_A" to="net.GND" />
+    <trace from="USB2.SHIELD_B" to="net.GND" />
+    <trace from="USB2.SHIELD_C" to="net.GND" />
+    <trace from="USB2.SHIELD_D" to="net.GND" />
+    <trace from="USB2.CC2" to="R1.pin1" />
+    <trace from="USB2.CC1" to="R2.pin1" />
 
     <trace from="R1.pin2" to="U1.CC2_A" />
     <trace from="R1.pin2" to="U1.CC2_B" />
@@ -320,7 +381,7 @@ export default () => (
     <trace from="C1.pin2" to="net.GND" />
     <trace from="U2.PA9_SCL" to="net.SCL" />
     <trace from="U2.PA10_SDA" to="net.SDA" />
-    <trace from="U2.PA13_INT" to="net.INT" />
+    <trace from="U2.PB1_INT" to="net.INT" />
     <trace from="U2.PF1_OSC_OUT" to="net.BTN" />
 
     <trace from="R3.pin1" to="net.V3_3" />
@@ -337,13 +398,21 @@ export default () => (
     <trace from="C6.pin1" to="net.BTN" />
     <trace from="C6.pin2" to="net.GND" />
 
-    <trace from="LED1.ANODE" to="net.V3_3" />
+    <trace from="LED1.ANODE_G" to="net.V3_3" />
+    <trace from="LED1.ANODE_R" to="net.V3_3" />
+    <trace from="LED1.ANODE_B" to="net.V3_3" />
     <trace from="U2.PA7_LED_B" to="R7.pin1" />
     <trace from="R7.pin2" to="LED1.BLUE_K" />
     <trace from="U2.PA6_LED_G" to="R6.pin1" />
     <trace from="R6.pin2" to="LED1.GREEN_K" />
     <trace from="U2.PA5_LED_R" to="R5.pin1" />
     <trace from="R5.pin2" to="LED1.RED_K" />
+
+    <trace from="J1.pin1" to="net.V3_3" />
+    <trace from="J1.pin2" to="U2.PA13_SWDIO" />
+    <trace from="J1.pin3" to="U2.PA14_SWCLK" />
+    <trace from="J1.pin4" to="U2.NRST" />
+    <trace from="J1.pin5" to="net.GND" />
 
     <trace from="CN1.VBUS" to="net.VBUS" />
     <trace from="CN1.GND" to="net.GND" />
