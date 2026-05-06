@@ -53,7 +53,7 @@ export const STM32F030F4P6TR = (props: ChipProps<typeof pinLabels>) => {
 <smtpad portHints={["pin1"]} pcbX="-2.925064mm" pcbY="-3.001137mm" width="0.350012mm" height="1.49352mm" shape="rect" />
 <smtpad portHints={["pin10"]} pcbX="2.92481mm" pcbY="-3.000883mm" width="0.350012mm" height="1.49352mm" shape="rect" />
 <smtpad portHints={["pin11"]} pcbX="2.925064mm" pcbY="3.001137mm" width="0.350012mm" height="1.49352mm" shape="rect" />
-<smtpad portHints={["pin20"]} pcbX="-2.925064mm" pcbY="3.001137mm" width="0.350012mm" height="1.49352mm" shape="rect" />
+<smtpad portHints={["pin20"]} pcbX="-2.925064mm" pcbY="3.001137mm" width="0.450012mm" height="1.49352mm" shape="rect" />
 <silkscreenpath route={[{"x":3.3106360000001587,"y":-1.9721829999999727},{"x":-3.2908239999999296,"y":-1.9721829999999727}]} />
 <silkscreenpath route={[{"x":3.3106360000001587,"y":1.9140169999999443},{"x":-3.3187639999999874,"y":1.9140169999999443}]} />
 <silkscreenpath route={[{"x":3.3106360000001587,"y":-1.9721829999999727},{"x":3.3106360000001587,"y":1.9140169999999443}]} />

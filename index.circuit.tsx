@@ -309,7 +309,7 @@ export default () => (
       <capacitor name="C6" capacitance="100nF" footprint="0402" pcbX="19mm" pcbY="-13mm" schX="6.5mm" schY="10mm" />
     </group>
 
-    <group pcbX="24mm" pcbY="10mm">
+    <group pcbX="23mm" pcbY="10mm">
       <RgbLed name="LED1" pcbX="0mm" pcbY="0mm" schX="13mm" schY="10mm" />
       <resistor name="R7" resistance="2.2kohm" footprint="0402" pcbX="-6mm" pcbY="3mm" schX="9.5mm" schY="12mm" />
       <resistor name="R6" resistance="5.6kohm" footprint="0402" pcbX="6mm" pcbY="-3mm" schX="18mm" schY="10mm" />
