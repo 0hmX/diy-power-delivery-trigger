@@ -274,7 +274,7 @@ const SwdHeader = (props: any) => (
 )
 
 export default () => (
-  <board width="86mm" height="36mm" layers={2}>
+  <board width="86mm" height="36mm" layers={2} minViaHoleDiameter={0.3}  minViaPadDiameter={0.45}>
     <group pcbX="-26.5mm" pcbY="0mm">
       <UsbCPlug name="USB2" pcbX="-11mm" pcbY="0mm" pcbRotation={270} schX="-19mm" schY="-2mm" />
       <resistor name="R1" resistance="100ohm" footprint="0402" pcbX="1mm" pcbY="-4.5mm" schX="-13mm" schY="-3.5mm" />
