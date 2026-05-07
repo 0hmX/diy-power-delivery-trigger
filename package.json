@@ -1,6 +1,6 @@
 {
   "name": "@tsci/0hmX.diy-power-delivery-trigger",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Reconstructed tscircuit clone of the Electromaker DIY Power Delivery Trigger project.",
   "main": "index.tsx",
   "keywords": [

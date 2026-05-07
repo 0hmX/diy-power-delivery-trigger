@@ -274,7 +274,7 @@ const SwdHeader = (props: any) => (
 )
 
 export default () => (
-  <board width="86mm" height="36mm" layers={2} minViaHoleDiameter={0.3}  minViaPadDiameter={0.45}>
+  <board width="86mm" height="36mm" layers={4} minViaHoleDiameter={0.3} minViaPadDiameter={0.45}>
     <group pcbX="-26.5mm" pcbY="0mm">
       <UsbCPlug name="USB2" pcbX="-11mm" pcbY="0mm" pcbRotation={270} schX="-19mm" schY="-2mm" />
       <resistor name="R1" resistance="100ohm" footprint="0402" pcbX="1mm" pcbY="-4.5mm" schX="-13mm" schY="-3.5mm" />
@@ -318,8 +318,22 @@ export default () => (
 
     <SwdHeader name="J1" pcbX="32mm" pcbY="-9mm" pcbRotation={90} schX="20mm" schY="6mm" />
     <TerminalBlock2 name="CN1" pcbX="36mm" pcbY="10mm" pcbRotation={90} schX="20mm" schY="-6mm" />
-    <trace from="USB2.VBUS_A" to="net.VBUS" />
-    <trace from="USB2.VBUS_B" to="net.VBUS" />
+    <trace
+      from="USB2.VBUS_A"
+      to="net.VBUS"
+      thickness="0.9mm"
+      pcbRouteHints={[
+        { x: -31, y: -2, via: true, to_layer: "inner2", trace_width: "0.9mm" },
+      ]}
+    />
+    <trace
+      from="USB2.VBUS_B"
+      to="net.VBUS"
+      thickness="0.9mm"
+      pcbRouteHints={[
+        { x: -31, y: 2, via: true, to_layer: "inner2", trace_width: "0.9mm" },
+      ]}
+    />
     <trace from="USB2.GND_A" to="net.GND" />
     <trace from="USB2.GND_B" to="net.GND" />
     <trace from="USB2.SHIELD_A" to="net.GND" />
@@ -342,7 +356,14 @@ export default () => (
     <trace from="R2.pin2" to="D2.pin1" />
     <trace from="D2.pin2" to="net.GND" />
 
-    <trace from="U1.VBUS" to="net.VBUS" />
+    <trace
+      from="U1.VBUS"
+      to="net.VBUS"
+      thickness="0.4mm"
+      pcbRouteHints={[
+        { x: -14, y: 1.5, via: true, to_layer: "inner2", trace_width: "0.4mm" },
+      ]}
+    />
     <trace from="U1.VDD_A" to="net.V3_3" />
     <trace from="U1.VDD_B" to="net.V3_3" />
     <trace from="C7.pin1" to="net.V3_3" />
@@ -356,12 +377,40 @@ export default () => (
     <trace from="U1.SCL" to="net.SCL" />
     <trace from="U1.SDA" to="net.SDA" />
 
-    <trace from="C2.pin1" to="net.VBUS" />
+    <trace
+      from="C2.pin1"
+      to="net.VBUS"
+      thickness="0.8mm"
+      pcbRouteHints={[
+        { x: -22, y: 6, via: true, to_layer: "inner2", trace_width: "0.8mm" },
+      ]}
+    />
     <trace from="C2.pin2" to="net.GND" />
-    <trace from="C4.pin1" to="net.VBUS" />
+    <trace
+      from="C4.pin1"
+      to="net.VBUS"
+      thickness="0.8mm"
+      pcbRouteHints={[
+        { x: -22, y: 14, via: true, to_layer: "inner2", trace_width: "0.8mm" },
+      ]}
+    />
     <trace from="C4.pin2" to="net.GND" />
-    <trace from="U3.VIN" to="net.VBUS" />
-    <trace from="U3.EN" to="net.VBUS" />
+    <trace
+      from="U3.VIN"
+      to="net.VBUS"
+      thickness="0.8mm"
+      pcbRouteHints={[
+        { x: -14, y: 12, via: true, to_layer: "inner2", trace_width: "0.8mm" },
+      ]}
+    />
+    <trace
+      from="U3.EN"
+      to="net.VBUS"
+      thickness="0.35mm"
+      pcbRouteHints={[
+        { x: -14, y: 8, via: true, to_layer: "inner2", trace_width: "0.35mm" },
+      ]}
+    />
     <trace from="U3.GND" to="net.GND" />
     <trace from="U3.SW" to="L1.pin1" />
     <trace from="L1.pin2" to="net.V3_3" />
@@ -414,7 +463,39 @@ export default () => (
     <trace from="J1.pin4" to="U2.NRST" />
     <trace from="J1.pin5" to="net.GND" />
 
-    <trace from="CN1.VBUS" to="net.VBUS" />
+    <trace from="CN1.VBUS" to="net.VBUS" thickness="1.0mm" />
     <trace from="CN1.GND" to="net.GND" />
+    <copperpour
+      name="INNER1_GND_PLANE"
+      connectsTo="net.GND"
+      layer="inner1"
+      clearance="0.2mm"
+      boardEdgeMargin="0.25mm"
+    />
+    <copperpour
+      name="INNER2_VBUS_TRUNK"
+      connectsTo="net.VBUS"
+      layer="inner2"
+      clearance="0.25mm"
+      outline={[
+        { x: -42, y: -6 },
+        { x: 42, y: -6 },
+        { x: 42, y: 16 },
+        { x: 20, y: 16 },
+        { x: 20, y: 3 },
+        { x: -8, y: 3 },
+        { x: -8, y: 16 },
+        { x: -24, y: 16 },
+        { x: -24, y: 3 },
+        { x: -42, y: 3 },
+      ]}
+    />
+    <copperpour
+      name="BOTTOM_GND_POUR"
+      connectsTo="net.GND"
+      layer="bottom"
+      clearance="0.2mm"
+      boardEdgeMargin="0.25mm"
+    />
   </board>
 )
