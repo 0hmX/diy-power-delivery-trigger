@@ -1,8 +1,10 @@
 import { AP63203WU_7 } from "./imports/AP63203WU_7"
 import { B3U_1000P } from "./imports/B3U_1000P"
+import { BSMD1206_200_12V } from "./imports/BSMD1206_200_12V"
 import { FUSB302BMPX } from "./imports/FUSB302BMPX"
 import { NLV32T_6R8J_PF } from "./imports/NLV32T_6R8J_PF"
 import { PESD5V0S1BA } from "./imports/PESD5V0S1BA"
+import { SMAJ12A } from "./imports/SMAJ12A"
 import { STM32F030F4P6TR } from "./imports/STM32F030F4P6TR"
 import { TYPE_C_31_M_12 } from "./imports/TYPE_C_31_M_12"
 import { WJ2EDGVC_5_08_02P_14_00A } from "./imports/WJ2EDGVC_5_08_02P_14_00A"
@@ -250,8 +252,36 @@ const PowerInductor = (props: any) => (
   <NLV32T_6R8J_PF
     {...props}
     pinAttributes={{
-      pin1: { mustBeConnected: true },
-      pin2: { mustBeConnected: true },
+      pin1: { requiresPower: true, mustBeConnected: true },
+      pin2: { providesPower: true, mustBeConnected: true },
+    }}
+  />
+)
+
+const VbusTvs = (props: any) => (
+  <SMAJ12A
+    {...props}
+    pinLabels={{
+      pin1: "VBUS",
+      pin2: "GND",
+    }}
+    pinAttributes={{
+      VBUS: { requiresPower: true },
+      GND: { requiresPower: true, requiresGround: true },
+    }}
+  />
+)
+
+const ResettableFuse = (props: any) => (
+  <BSMD1206_200_12V
+    {...props}
+    pinLabels={{
+      pin1: "IN",
+      pin2: "OUT",
+    }}
+    pinAttributes={{
+      IN: { requiresPower: true },
+      OUT: { providesPower: true },
     }}
   />
 )
@@ -282,31 +312,34 @@ export default () => (
       <EsdDiode name="D1" pcbX="1mm" pcbY="-8mm" schX="-10mm" schY="-4mm" />
       <EsdDiode name="D2" pcbX="1mm" pcbY="8mm" pcbRotation={180} schX="-10mm" schY="3mm" />
       <capacitor name="C9" capacitance="220pF" footprint="0402" pcbX="7mm" pcbY="-8mm" schX="-4mm" schY="-6mm" />
-      <capacitor name="C10" capacitance="220pF" footprint="0402" pcbX="7mm" pcbY="8mm" schX="-4mm" schY="6mm" />
+      <capacitor name="C10" capacitance="220pF" footprint="0402" pcbX="8.5mm" pcbY="6.5mm" schX="-4mm" schY="6mm" />
       <Fusb302 name="U1" pcbX="17mm" pcbY="0mm" schX="-5mm" schY="0mm" />
-      <capacitor name="C7" capacitance="100nF" footprint="0402" pcbX="23mm" pcbY="-4mm" schX="-1mm" schY="-5mm" />
+      <capacitor name="C7" capacitance="100nF" footprint="0402" pcbX="22mm" pcbY="-4mm" schX="-1mm" schY="-5mm" />
       <capacitor name="C8" capacitance="1uF" footprint="0603" pcbX="23mm" pcbY="4mm" schX="1mm" schY="-5mm" />
     </group>
 
+    <VbusTvs name="D3" pcbX="-31mm" pcbY="0mm" pcbRotation={90} schX="-15mm" schY="-11mm" />
+    <ResettableFuse name="F1" pcbX="-27mm" pcbY="13mm" schX="-10mm" schY="-11mm" />
+
     <group pcbX="-10mm" pcbY="10mm">
-      <capacitor name="C2" capacitance="100nF" footprint="0603" pcbX="-9mm" pcbY="-4mm" schX="-13mm" schY="10mm" />
-      <capacitor name="C4" capacitance="10uF" footprint="1206" pcbX="-9mm" pcbY="4mm" schX="-11mm" schY="10mm" />
+      <capacitor name="C2" capacitance="100nF" footprint="0603" pcbX="-11.5mm" pcbY="-6mm" schX="-13mm" schY="10mm" />
+      <capacitor name="C4" capacitance="10uF" footprint="1206" pcbX="-11.5mm" pcbY="5mm" schX="-11mm" schY="10mm" />
       <Buck3V3 name="U3" pcbX="0mm" pcbY="0mm" schX="-6.5mm" schY="10.5mm" />
       <capacitor name="C11" capacitance="100nF" footprint="0402" pcbX="0mm" pcbY="-7mm" schX="-4mm" schY="14mm" />
       <PowerInductor name="L1" pcbX="10mm" pcbY="0mm" schX="-1mm" schY="10.5mm" />
-      <capacitor name="C5" capacitance="22uF" footprint="1206" pcbX="18mm" pcbY="-4mm" schX="3mm" schY="12mm" />
-      <capacitor name="C3" capacitance="22uF" footprint="1206" pcbX="18mm" pcbY="4mm" schX="5mm" schY="10mm" />
+      <capacitor name="C5" capacitance="22uF" footprint="1206" pcbX="21mm" pcbY="-4mm" schX="3mm" schY="12mm" />
+      <capacitor name="C3" capacitance="22uF" footprint="1206" pcbX="21mm" pcbY="4mm" schX="5mm" schY="10mm" />
     </group>
 
-    <group pcbX="7mm" pcbY="-1mm">
+    <group pcbX="8.5mm" pcbY="-1mm">
       <Stm32F030 name="U2" pcbX="0mm" pcbY="0mm" schX="7mm" schY="-1mm" />
-      <resistor name="R3" resistance="2.2kohm" footprint="0402" pcbX="-10.5mm" pcbY="-7.5mm" schX="1mm" schY="-8mm" />
-      <resistor name="R4" resistance="2.2kohm" footprint="0402" pcbX="-8mm" pcbY="-2.8mm" schX="-1mm" schY="-8mm" />
-      <resistor name="R8" resistance="4.7kohm" footprint="0402" pcbX="-8mm" pcbY="0.8mm" schX="1mm" schY="-10mm" />
-      <capacitor name="C1" capacitance="100nF" footprint="0402" pcbX="8mm" pcbY="4mm" schX="12mm" schY="5mm" />
-      <resistor name="R9" resistance="10kohm" footprint="0402" pcbX="12mm" pcbY="-8mm" schX="3mm" schY="12mm" />
-      <PushButton2Pin name="SW1" pcbX="12mm" pcbY="-13mm" schX="4mm" schY="10mm" />
-      <capacitor name="C6" capacitance="100nF" footprint="0402" pcbX="19mm" pcbY="-13mm" schX="6.5mm" schY="10mm" />
+      <resistor name="R3" resistance="2.2kohm" footprint="0402" pcbX="-13mm" pcbY="-7.5mm" schX="1mm" schY="-8mm" />
+      <resistor name="R4" resistance="2.2kohm" footprint="0402" pcbX="-10.5mm" pcbY="-2.8mm" schX="-1mm" schY="-8mm" />
+      <resistor name="R8" resistance="4.7kohm" footprint="0402" pcbX="-8.5mm" pcbY="0.8mm" schX="1mm" schY="-10mm" />
+      <capacitor name="C1" capacitance="100nF" footprint="0402" pcbX="-2.5mm" pcbY="-5mm" pcbRotation={90} schX="12mm" schY="5mm" />
+      <resistor name="R9" resistance="10kohm" footprint="0402" pcbX="3.5mm" pcbY="-8mm" schX="3mm" schY="12mm" />
+      <PushButton2Pin name="SW1" pcbX="3.5mm" pcbY="-13mm" schX="4mm" schY="10mm" />
+      <capacitor name="C6" capacitance="100nF" footprint="0402" pcbX="8.5mm" pcbY="-13mm" schX="6.5mm" schY="10mm" />
     </group>
 
     <group pcbX="23mm" pcbY="10mm">
@@ -320,18 +353,18 @@ export default () => (
     <TerminalBlock2 name="CN1" pcbX="36mm" pcbY="10mm" pcbRotation={90} schX="20mm" schY="-6mm" />
     <trace
       from="USB2.VBUS_A"
-      to="net.VBUS"
-      thickness="0.9mm"
+      to="net.VBUS_RAW"
+      thickness="1.0mm"
       pcbRouteHints={[
-        { x: -31, y: -2, via: true, to_layer: "inner2", trace_width: "0.9mm" },
+        { x: -31, y: -2, via: true, to_layer: "inner2", trace_width: "1.0mm" },
       ]}
     />
     <trace
       from="USB2.VBUS_B"
-      to="net.VBUS"
-      thickness="0.9mm"
+      to="net.VBUS_RAW"
+      thickness="1.0mm"
       pcbRouteHints={[
-        { x: -31, y: 2, via: true, to_layer: "inner2", trace_width: "0.9mm" },
+        { x: -31, y: 2, via: true, to_layer: "inner2", trace_width: "1.0mm" },
       ]}
     />
     <trace from="USB2.GND_A" to="net.GND" />
@@ -343,35 +376,47 @@ export default () => (
     <trace from="USB2.CC2" to="R1.pin1" />
     <trace from="USB2.CC1" to="R2.pin1" />
 
-    <trace from="R1.pin2" to="U1.CC2_A" />
-    <trace from="R1.pin2" to="U1.CC2_B" />
     <trace from="R1.pin2" to="C9.pin1" />
+    <trace from="C9.pin1" to="D1.pin1" />
+    <trace from="C9.pin1" to="U1.CC2_A" />
+    <trace from="U1.CC2_A" to="U1.CC2_B" />
     <trace from="C9.pin2" to="net.GND" />
-    <trace from="R2.pin2" to="U1.CC1_A" />
-    <trace from="R2.pin2" to="U1.CC1_B" />
     <trace from="R2.pin2" to="C10.pin1" />
+    <trace from="C10.pin1" to="D2.pin1" />
+    <trace
+      from="C10.pin1"
+      to="U1.CC1_A"
+      pcbRouteHints={[
+        { x: -18.5, y: 7.2 },
+        { x: -12.6, y: 7.2 },
+        { x: -12.6, y: 1.4 },
+      ]}
+    />
+    <trace from="U1.CC1_A" to="U1.CC1_B" />
     <trace from="C10.pin2" to="net.GND" />
-    <trace from="R1.pin2" to="D1.pin1" />
     <trace from="D1.pin2" to="net.GND" />
-    <trace from="R2.pin2" to="D2.pin1" />
     <trace from="D2.pin2" to="net.GND" />
+    <trace from="D3.VBUS" to="net.VBUS_RAW" thickness="1.0mm" />
+    <trace from="D3.GND" to="net.GND" thickness="1.0mm" />
+    <trace from="F1.IN" to="net.VBUS_RAW" thickness="1.2mm" />
+    <trace from="F1.OUT" to="net.VBUS" thickness="1.2mm" />
 
     <trace
       from="U1.VBUS"
       to="net.VBUS"
-      thickness="0.4mm"
+      thickness="0.5mm"
       pcbRouteHints={[
-        { x: -14, y: 1.5, via: true, to_layer: "inner2", trace_width: "0.4mm" },
+        { x: -14, y: 1.5, via: true, to_layer: "inner2", trace_width: "0.5mm" },
       ]}
     />
     <trace from="U1.VDD_A" to="net.V3_3" />
     <trace from="U1.VDD_B" to="net.V3_3" />
     <trace from="C7.pin1" to="net.V3_3" />
-    <trace from="C7.pin2" to="net.GND" />
+    <trace from="C7.pin2" to="U1.EP" />
     <trace from="C8.pin1" to="net.V3_3" />
     <trace from="C8.pin2" to="net.GND" />
-    <trace from="U1.GND_A" to="net.GND" />
-    <trace from="U1.GND_B" to="net.GND" />
+    <trace from="U1.GND_A" to="U1.EP" />
+    <trace from="U1.GND_B" to="U1.EP" />
     <trace from="U1.EP" to="net.GND" />
     <trace from="U1.INT_N" to="net.INT" />
     <trace from="U1.SCL" to="net.SCL" />
@@ -380,37 +425,30 @@ export default () => (
     <trace
       from="C2.pin1"
       to="net.VBUS"
-      thickness="0.8mm"
+      thickness="0.9mm"
       pcbRouteHints={[
-        { x: -22, y: 6, via: true, to_layer: "inner2", trace_width: "0.8mm" },
+        { x: -22, y: 6, via: true, to_layer: "inner2", trace_width: "0.9mm" },
       ]}
     />
     <trace from="C2.pin2" to="net.GND" />
     <trace
       from="C4.pin1"
       to="net.VBUS"
-      thickness="0.8mm"
+      thickness="0.9mm"
       pcbRouteHints={[
-        { x: -22, y: 14, via: true, to_layer: "inner2", trace_width: "0.8mm" },
+        { x: -22, y: 14, via: true, to_layer: "inner2", trace_width: "0.9mm" },
       ]}
     />
     <trace from="C4.pin2" to="net.GND" />
     <trace
       from="U3.VIN"
       to="net.VBUS"
-      thickness="0.8mm"
+      thickness="0.9mm"
       pcbRouteHints={[
-        { x: -14, y: 12, via: true, to_layer: "inner2", trace_width: "0.8mm" },
+        { x: -14, y: 12, via: true, to_layer: "inner2", trace_width: "0.9mm" },
       ]}
     />
-    <trace
-      from="U3.EN"
-      to="net.VBUS"
-      thickness="0.35mm"
-      pcbRouteHints={[
-        { x: -14, y: 8, via: true, to_layer: "inner2", trace_width: "0.35mm" },
-      ]}
-    />
+    <trace from="U3.EN" to="U3.VIN" thickness="0.35mm" />
     <trace from="U3.GND" to="net.GND" />
     <trace from="U3.SW" to="L1.pin1" />
     <trace from="L1.pin2" to="net.V3_3" />
@@ -459,12 +497,29 @@ export default () => (
 
     <trace from="J1.pin1" to="net.V3_3" />
     <trace from="J1.pin2" to="U2.PA13_SWDIO" />
-    <trace from="J1.pin3" to="U2.PA14_SWCLK" />
+    <trace
+      from="J1.pin3"
+      to="U2.PA14_SWCLK"
+      pcbRouteHints={[
+        { x: 29, y: -8.25, via: true, to_layer: "inner2" },
+        { x: 12, y: 3.3 },
+        { x: 6, y: 3.3 },
+        { x: 5.8, y: 2.45, via: true, to_layer: "top" },
+      ]}
+    />
     <trace from="J1.pin4" to="U2.NRST" />
     <trace from="J1.pin5" to="net.GND" />
 
-    <trace from="CN1.VBUS" to="net.VBUS" thickness="1.0mm" />
-    <trace from="CN1.GND" to="net.GND" />
+    <trace
+      from="CN1.VBUS"
+      to="net.VBUS"
+      thickness="1.2mm"
+    />
+    <trace
+      from="CN1.GND"
+      to="net.GND"
+      thickness="1.2mm"
+    />
     <copperpour
       name="INNER1_GND_PLANE"
       connectsTo="net.GND"
@@ -478,14 +533,10 @@ export default () => (
       layer="inner2"
       clearance="0.25mm"
       outline={[
-        { x: -42, y: -6 },
-        { x: 42, y: -6 },
+        { x: -31, y: 4.5 },
+        { x: 42, y: 4.5 },
         { x: 42, y: 16 },
-        { x: 22, y: 16 },
-        { x: 22, y: 4 },
-        { x: -6, y: 4 },
-        { x: -6, y: 16 },
-        { x: -42, y: 16 },
+        { x: -31, y: 16 },
       ]}
     />
     <copperpour
